@@ -6,3 +6,6 @@ menu:
 Paginator:
   Prev: Prev
   Next: Next  
+
+headerBgImg: 
+  url:   ./images/bg.jpg

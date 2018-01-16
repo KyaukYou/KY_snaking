@@ -1,4 +1,4 @@
-<header class='header'>
+<header class='header' style='background-image:' + <%-  -%>>
     <div class='blog-title'>
         <a href="<%- url_for() %>" class='logo'><%- config.title %></a>
     </div> 
@@ -6,7 +6,7 @@
         <ul class='menu'>
             <% for(name in theme.menu) { %>
                 <li class='menu-item'>
-                    <a href="<%- url_for(theme.menu[name]) %>" class='menu-item-link'><%- __('Menu.' + name) %></a>
+                    <a href="<%- url_for(theme.menu[name]) %>" class='menu-item-link'><%- name %></a>
                 </li>
             <% } %>
         </ul>
