@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/soft-m.css" />
+		<link rel="stylesheet" href="../css/graphical.css" />
+	</head>
+
+	<body>
+		<div class="soft-main-wrap">
+			<div class="soft-main-content">
+				<div class="cylinder-wrap">
+					<div class="cylinder-c"></div>
+					<div class="cylinder-m"></div>
+					<div class="cylinder-wrap cylinder-wrap-small">
+						<div class="cylinder-c cylinder-c-small"></div>
+						<div class="cylinder-m cylinder-m-small"></div>
+						<div class="cylinder-c cylinder-bottom cylinder-c-small"></div>
+					</div>
+					<div class="cylinder-c cylinder-bottom cylinder-no-border" style="bottom: -4px;"></div>
+				</div>
+				<div class="cylinder-show">
+					<div class="cylinder-refresh" id="cylinder-refresh">
+						<img src="../images/cac.png" alt="" class="cylinder-refresh-img"/>
+					</div>
+					<!--<div class="loading cylinder-refresh" id="cylinder-refresh"></div>-->
+					<ul class="cylinder-ul">
+						<li>当前容量：<span>50%</span></li>
+						<li>当前温度：<span>50%</span></li>
+						<li>当前湿度：<span>50%</span></li>
+						<li>当前容量：<span>50%</span></li>
+						<li>当前容量：<span>50%</span></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+		<script src='../js/app.js'></script>
+	</body>
+
+</html>
