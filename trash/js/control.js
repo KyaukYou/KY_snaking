@@ -142,3 +142,5 @@ document.getElementById('btn').addEventListener('tap',function() {
 //
 //
 //mask.show();
+
+console.log(plus.device.model)

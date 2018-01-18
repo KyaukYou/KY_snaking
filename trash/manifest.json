@@ -189,5 +189,38 @@
 				}
 			}
 		}
+	},
+	"dependencies": {
+		"pages": {
+			"index.html": {
+				"resources": [
+					"pages/main.html"
+				],
+				"refer": [
+					"pages/info.html",
+					"pages/my.html"
+				],
+				"priority": 0
+			}
+		},
+		"idle": {
+			"resources": [
+				"css/soft-m.css",
+				"images/sync-o2.png",
+				"js/main.js",
+				"js/app.js",
+				"fonts/mui.ttf",
+				"js/control.js",
+				"css/mui.css",
+				"images/refresh1.png",
+				"css/graphical.css",
+				"images/cac.png",
+				"images/refresh2.png",
+				"js/mui.min.js",
+				"css/mui.min.css",
+				"images/sync-o1.png",
+				"js/mui.js"
+			]
+		}
 	}
 }
