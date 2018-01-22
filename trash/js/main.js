@@ -16,7 +16,9 @@
 //	})
 //}
 
-function CreateBar(num, parentNode, per) {
+var oldPer = 0.8;
+
+function CreateBar(num, parentNode, per, ms) {
     parentNode.innerHTML = '';
     getDom('#soft-info-perText').innerHTML = '0%';
     this.number = num;
@@ -33,22 +35,34 @@ function CreateBar(num, parentNode, per) {
         that.parentNode.appendChild(infoSchedule)
     }
     var needShow = Math.round(that.per);
-    var beginShow = -1;
+    var beginShow = 0;
     var countNum = needShow / that.per; 
     console.log(needShow)
     var countText = 0;
+    if(per == 0) {
+        console.log(oldPer)
+        thisPer = oldPer * 100;
+        timer = setInterval(function() {
+            if(thisPer >=0 ){
+                getDom('#soft-info-perText').innerHTML = thisPer + '%';
+                that.parentNode.children[20].className = 'soft-info-schedule-sm';
+            }
+            thisPer--;
+            console.log(thisPer)
+        },100)
+    }else if(per == 1){
+
+    }else {
     timer = setInterval(function() {
         countText += countNum;
         beginShow++;   
-        if(beginShow < needShow) {
+        if(beginShow < needShow){
             getDom('#soft-info-perText').innerHTML = countText.toFixed(1) + '%';
             that.parentNode.children[beginShow].className = 'soft-info-schedule-white'
-        }else {
-            getDom('#soft-info-perText').innerHTML = (per * 100).toFixed(1) + '%';
-            that.parentNode.children[needShow-1].className = 'soft-info-schedule-white'
-            clearInterval(timer);
         }
-    },20)
+    },ms)
+    console.log(1);
+    }
 }
 
 getDom('#soft-info-changePer').addEventListener('tap',function() {
@@ -59,8 +73,10 @@ function chnageValue() {
     getDom('.soft-info-schedule')[0].innerHTML = '';
     getDom('#soft-info-perText').innerHTML = '0%';
     var value = getDom('#soft-info-inputPer').value;
-    value = value.split(',');
-    var createBar2 = new CreateBar(value[0]-0, getDom('.soft-info-schedule')[0],value[1]-0)
+    // value = value.split(',');
+    // oldPer = value-0;
+    console.log(oldPer)
+    var createBar2 = new CreateBar(100, getDom('.soft-info-schedule')[0],value-0,10)
 }
 
 function throttle(method,context){
@@ -70,4 +86,4 @@ function throttle(method,context){
     },10);
 }
 
-var createBar1 = new CreateBar(10, getDom('.soft-info-schedule')[0], 0.8);
+var createBar1 = new CreateBar(100, getDom('.soft-info-schedule')[0], 0.8, 20);

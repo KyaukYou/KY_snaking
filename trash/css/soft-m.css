@@ -53,20 +53,23 @@ body {
 }
 
 .soft-wrap {
-	width: 90%;
+	width: 80%;
 	min-height: 20px;
 	height: auto;
-	border: 5px solid pink;
+	border: 2px solid lightblue;
 	margin: 20px auto;
 	text-align: center;
 	line-height: 30px;
+	padding: 10px;
 }
 
 .soft-container {
 	width: 100%;
 	height: auto;
-	opacity: 0;
+	/*opacity: 0;*/
 	transition: all .5s;
+	/*background-color: rgba(0,0,0,0.5);*/
+	color: black;
 }
 
 .soft-main-wrap {
@@ -160,12 +163,14 @@ body {
 }
 
 .soft-show-wrap {
-	position: fixed;
-	height: 280px;
-	top: 75px;
+	/*position: fixed;*/
+	height: auto;
+	width: 90%;
+	margin: 0 auto;
+	/*top: 75px;*/
 	/*bottom: 60px;*/
-	left: 3%;
-	right: 3%;
+	/*left: 3%;*/
+	/*right: 3%;*/
 	/*border: 1px solid lightblue;*/
 	border-radius: 5px;
 	/*background-color: lightcyan;*/
