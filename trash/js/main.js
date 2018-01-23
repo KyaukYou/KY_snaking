@@ -1,17 +1,15 @@
-
 /*创建进度条，数量100*/
-function CreateSchedule() {
-    this.number = 100;
+function CreateSchedule(num, ele, clas) {
+    this.number = num;
     this.rotateNum = 360 / this.number;
-    this.parentNode = getDom('.soft-info-schedule')[0];
-    for(var i=0; i<this.number; i++) {
+    this.parentNode = ele;
+    for (var i = 0; i < this.number; i++) {
         var smSchedule = document.createElement('div');
-        smSchedule.className = 'soft-info-schedule-tra';
+        smSchedule.className = clas;
         smSchedule.style.webkitTransform = 'rotate(' + i * this.rotateNum + 'deg)';
         this.parentNode.appendChild(smSchedule);
     }
 }
-new CreateSchedule();
 
 /*初始化进度条进度*/
 /*
@@ -23,77 +21,158 @@ new CreateSchedule();
       2. 为1
       3. 0~1
     还需要实时记录进度，不能每次都让进度条重新加载，影响观感和代码的执行速度   
-*/ 
+*/
 /*监测上一次的进度百分比*/
 var oldPer = 0;
-function initSchedlue(per,ele,ms) {
-    if(per == 0) {
-        loadingAnimate(100,per,ele,ms)
-    }else if(per == 1) {
-        loadingAnimate(100,per,ele,ms)
-    }else {
-        loadingAnimate(100,per,ele,ms)
+var oldTemp = 0;
+
+function initSchedlue(per, ele, ms, clas1, clas2, temp, type) {
+    if (per == 0) {
+        loadingAnimate(100, per, ele, ms, clas1, clas2, temp, type)
+    } else if (per == 1) {
+        loadingAnimate(100, per, ele, ms, clas1, clas2, temp, type)
+    } else {
+        loadingAnimate(100, per, ele, ms, clas1, clas2, temp, type)
     }
-    
 }
 
 /*动画执行*/
-function loadingAnimate(num,per,ele,ms) {
-    let timer1 = null;
-    let timer2 = null;
-    per = per * 100; 
+function loadingAnimate(num, per, ele, ms, clas1, clas2, innerText, type) {
+    var timer1 = null;
+    var timer2 = null;
+    var timer3 = null;
+    var timer4 = null;
+    per = per * 100-1;
     clearInterval(timer1);
     clearInterval(timer2);
-    console.log(per,oldPer)
-    /*增加*/
-    if(per > oldPer) {
-        timer1 = setInterval(function() {
-            if(per >= oldPer) {
-                if(oldPer == 100) {
-                    oldPer = 99;
-                    getDom('#soft-info-perText').innerHTML = '100%';
-                    ele.children[99].className = 'soft-info-schedule-white';
+    clearInterval(timer3);
+    clearInterval(timer4);
+
+    if (type == 1) {
+        /*增加*/
+        if (per > oldPer) {
+            timer1 = setInterval(function () {
+                if (per >= oldPer) {
+                    getDom(innerText).innerHTML = oldPer+1 + '%';
+                    ele.getElementsByTagName('div')[oldPer].className = clas1;
+                    // console.log(oldPer)
+                } else {
+                    oldPer = per;
+                    var a = oldPer;
+                    getDom(innerText).innerHTML = a+1 + '%';
+                    ele.getElementsByTagName('div')[oldPer].className = clas1;
                     clearInterval(timer1);
-                    return;                    
+                    return;
                 }
-                getDom('#soft-info-perText').innerHTML = oldPer + '%';
-                ele.children[oldPer].className = 'soft-info-schedule-white';
-            }else {
-                oldPer = per;
-                clearInterval(timer1);
-                return;
-            }
-            oldPer++;
-        },ms);
-     }
-    else {
-        /*减少*/
-        timer2 = setInterval(function() {
-            if(oldPer >= per) {
-                getDom('#soft-info-perText').innerHTML = oldPer + '%';
-                ele.children[oldPer].className = 'soft-info-schedule-tra';
-            }else {
-                oldPer = per;
-                clearInterval(timer2); 
-                return;   
-            }
-            oldPer--;
-        },ms)
+                
+                oldPer++;
+            }, ms);
+        }
+        else {
+            /*减少*/           
+            timer2 = setInterval(function () {
+                if (oldPer >= per) {
+                    // console.log(oldPer)
+                    if(oldPer <=0 ) {
+                        oldPer = 0;
+                        clearInterval(timer2);
+                        getDom(innerText).innerHTML = 0 + '%';
+                        ele.getElementsByTagName('div')[oldPer].className = clas2;
+                        return;
+                    }
+                    getDom(innerText).innerHTML = oldPer+1 + '%';
+                    ele.getElementsByTagName('div')[oldPer].className = clas2;
+                } else {
+                    oldPer = per;
+                    getDom(innerText).innerHTML = oldPer+1 + '%';
+                    ele.getElementsByTagName('div')[oldPer].className = clas1;
+                    clearInterval(timer2);
+                    return;
+                }
+                oldPer--;
+            }, ms)
+        }
+    } else if (type == 2) {
+        /*增加*/
+        if (per > oldTemp) {
+            timer3 = setInterval(function () {
+                if (per >= oldTemp) {
+                    getDom(innerText).innerHTML = oldTemp+1 + '%';
+                    ele.getElementsByTagName('div')[oldTemp].className = clas2;
+                    console.log(ele.getElementsByTagName('div')[oldTemp])
+                } else {
+                    oldTemp = per;
+                    var a = oldTemp;
+                    getDom(innerText).innerHTML = a+1 + '%';
+                    ele.getElementsByTagName('div')[oldTemp].className = clas2;
+                    clearInterval(timer3);
+                    return;
+                }
+                
+                oldTemp++;
+            }, ms);
+        }
+        else {
+            /*减少*/           
+            timer4 = setInterval(function () {
+                if (oldTemp >= per) {
+                    console.log(oldTemp)
+                    if(oldTemp <=0 ) {
+                        oldTemp = 0;
+                        clearInterval(timer4);
+                        getDom(innerText).innerHTML = 0 + '%';
+                        ele.getElementsByTagName('div')[oldTemp].className = clas1;
+                        return;
+                    }
+                    getDom(innerText).innerHTML = oldTemp+1 + '%';
+                    ele.getElementsByTagName('div')[oldTemp].className = clas1;
+                } else {
+                    oldTemp = per;
+                    getDom(innerText).innerHTML = oldTemp+1 + '%';
+                    ele.getElementsByTagName('div')[oldTemp].className = clas2;
+                    clearInterval(timer4);
+                    return;
+                }
+                oldTemp--;
+            }, ms)
+        }
     }
 }
 
 
 /*点击事件 获得input输入值*/
-getDom('#soft-info-changePer').addEventListener('tap',function() {
+getDom('#soft-info-changePer').addEventListener('tap', function () {
     changeValue()
 });
 
 function changeValue() {
-    let ele = getDom('.soft-info-schedule')[0];
-    getDom('#soft-info-perText').innerHTML = '0%';
+    var ele = getDom('.soft-info-schedule')[0];
     var value = getDom('#soft-info-inputPer').value;
-    initSchedlue(value,ele,30);
+    value = Math.round(parseFloat(value) * 100) / 100;
+    initSchedlue(value, ele, 20, 'soft-info-schedule-white', 'soft-info-schedule-tra', '#soft-info-perText',1);
 }
 
 
+// var tabArr = ['当前已用容量','当前设备温度'];
+var infoIndex = 0;
+getDom('#soft-info-top').addEventListener('tap', function () {
+    if (infoIndex == 0) {
+        infoIndex = 1;
+    } else {
+        infoIndex--;
+    }
+    scrollInfo(infoIndex);
+})
+getDom('#soft-info-bottom').addEventListener('tap', function () {
+    if (infoIndex == 1) {
+        infoIndex = 0;
+    } else {
+        infoIndex++;
+    }
+    scrollInfo(infoIndex);
+})
 
+/*滚动函数*/
+function scrollInfo(index) {
+    getDom('.soft-info-log')[0].style.webkitTransform = "translateY(" + -index * 33.33333333 + "%)";
+}
