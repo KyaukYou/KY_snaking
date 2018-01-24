@@ -1,12 +1,15 @@
 {
 	"index.html": {
 		"resources": [
-			"pages/main.html"
+			"pages/main.html",
+			"pages/main1.html"
 		],
 		"refer": [
 			"pages/info.html",
 			"pages/my.html",
-			"pages/main.html"
+			"pages/main.html",
+			"pages/show.html",
+			"pages/main1.html"
 		]
 	}
 }

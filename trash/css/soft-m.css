@@ -210,11 +210,15 @@ body {
 .soft-info-circle {
 	width: 320px;
 	height: 320px;
-	margin: 0 auto;
-	margin-top: 15%;
+	/* margin: 0 auto; */
+	/* margin-top: 15%; */
 	border-radius: 50%;
 	background-color: rgba(255,255,255,0.1);
-	position: relative;
+	/* position: relative; */
+	position: absolute;
+	top: 5%;
+	left: 50%;
+	margin-left: -160px;
 }
 
 .soft-info-temp {
@@ -485,8 +489,7 @@ body {
 	position: absolute;
 	left: -132px;
 	top: 0;
-	/*border-right: 132px solid hotpink;*/
-	border-right: calc(100% - 66px) solid hotpink
+	border-right: calc(100% - 66px) solid hotpink;
 	border-top: 64px solid transparent;
 	border-bottom: 64px solid transparent;
 	transition: all .5s;
@@ -504,7 +507,6 @@ body {
 	border-bottom: 64px solid transparent;
 	transition: all .5s;
 }
-
 
 .parallelogram {
 	transform: skewX(50deg);
@@ -546,6 +548,7 @@ body {
 	height: 9%;
 	margin-top: 2.2%;
 	background-color: rgb(62,64,121);
+	border-radius: 15%;
 }
 
 .soft-info-schedule-white {
@@ -566,6 +569,7 @@ body {
 	margin-top: 2.2%;
 	background-color: white;
 	box-shadow: 0 0 3px white;
+	border-radius: 15%;
 }
 
 .soft-info-temp div:nth-of-type(1)::before {
@@ -615,4 +619,50 @@ body {
 	background-color: rgb(62,64,121);
 	transform-origin: center center;
 	-webkit-transform-origin: center center;
+}
+
+.soft-info-show {
+    width: 78%;
+    position: absolute;
+    top: 400px;
+    min-height: 250px;
+    margin-left: 11%;
+    background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.2);
+    overflow-y: auto;
+    bottom: 35px;
+}
+
+.soft-info-show-bg {
+    height: auto;
+    width: 100%;
+}
+
+.soft-info-show-sm {
+    width: 100%;
+    height: 90px;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.soft-info-show-time {
+    color: rgba(255, 255, 255, 0.8);
+    width: 100%;
+    height: 25px;
+    font-size: 14px;
+    display: inline-block;
+    box-sizing: border-box;
+    padding-left: 10px;
+}
+
+.soft-info-show-text {
+    color: rgba(0, 0, 0, 0.8);
+    font-size: 18px;
+    height: 45px;
+    line-height: 22px;
+    margin: 0;
+    margin-top: 8px;
+    word-break: break-all;
+    box-sizing: border-box;
+    padding-left: 12px;
 }

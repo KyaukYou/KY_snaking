@@ -194,11 +194,13 @@
 		"pages": {
 			"index.html": {
 				"resources": [
-					"pages/main.html"
+					"pages/main.html",
+					"pages/main1.html"
 				],
 				"refer": [
 					"pages/info.html",
-					"pages/my.html"
+					"pages/my.html",
+					"pages/show.html"
 				],
 				"priority": 0
 			}
