@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link href="../css/mui.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="../css/soft-m.css">
+	<link rel="stylesheet" href="../css/my.css" />
+</head>
+
+<body>
+	<div class="soft-my-container">
+		<div class="soft-my-img">
+			<img src="../images/admin.jpg" alt="" />
+		</div>
+		<div class="soft-my-input">
+			<div class="soft-my-input-sm">
+				<span style="padding-left: 15px; width: 55px">账号:</span>
+				<input type="input" class="soft-my-number" style="padding-left:20px" placeholder="请输入您的手机号码" />
+			</div>
+			<div class="soft-my-input-sm">
+				<span style="padding-left: 10px; width: 55px">验证码:</span>
+				<input type="input" style="padding-left:20px" class="soft-my-code" placeholder="请输入验证码" />
+				<i id="getCode">发送验证码</i>
+			</div>
+			<div class="soft-my-input-sm soft-my-input-smBtn">
+				<button class="soft-my-btn" id="setCode">验证</button>
+			</div>
+		</div>
+	</div>
+	<script src="../js/mui.min.js"></script>
+	<script type="text/javascript">
+		mui.init()
+	</script>
+	<script src='../js/dom.js'></script>
+	<script src='../js/my.js'></script>
+	<script>
+		var myCode = getDom('.soft-my-code')[0];
+		var getCode = getDom('#getCode');
+		var setCode = getDom('#setCode');
+		var myNumber = getDom('.soft-my-number')[0];
+		var myCode = getDom('.soft-my-code')[0];
+
+		getCode.addEventListener('tap', function () {
+			clickCode();
+		});
+
+		//验证码点击事件
+		function clickCode() {
+			//发送请求 跟上当前的手机号
+			var timer = null;
+			clearInterval(timer);
+			if (codeBol) {
+				timer = setInterval(function () {
+					if (codeNum <= 1) {
+						codeNum = 60;
+						clearInterval(timer);
+						codeBol = true;
+						getCode.innerHTML = '发送验证码';
+					} else {
+						codeBol = false;
+						getCode.innerHTML = codeNum + 'S';
+						codeNum--;
+					}
+				}, 1000)
+			}
+		}
+
+		// 注册事件
+		getDom('#setCode').addEventListener('tap', function () {
+			if (numberTest(myNumber.value)) {
+				console.log('手机号码验证通过');
+				if (codeTest(myCode.value)) {
+					console.log('验证码输入正确');
+				} else {
+					console.log('验证码错误');
+				}
+			} else {
+				console.log('手机号码验证失败');
+			}
+		});
+
+		getCode.addEventListener('tap', function () {
+			clickCode();
+		})
+	</script>
+</body>
+
+</html>
