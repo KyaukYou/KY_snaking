@@ -67,14 +67,14 @@ export default {
       let moveBody = document.createElement('div');
       moveBody.className = 'moveBody';
 
-      var R = Math.random() * 256;
-      var G = Math.random() * 256;
-      var B = Math.random() * 256;
+      var R = parseInt(Math.random() * 256);
+      var G = parseInt(Math.random() * 256);
+      var B = parseInt(Math.random() * 256);
       moveDiv.style.backgroundColor = 'rgb('+R+','+G+','+B+')';
 
-      var R1 = Math.random() * 256;
-      var G1 = Math.random() * 256;
-      var B1 = Math.random() * 256;
+      var R1 = parseInt(Math.random() * 256);
+      var G1 = parseInt(Math.random() * 256);
+      var B1 = parseInt(Math.random() * 256);
       moveHead.style.backgroundColor = 'rgb('+R1+','+G1+','+B1+')';
       this.snakeColor = 'rgb('+R+','+G+','+B+')';
       this.snakeHColor = 'rgb('+R1+','+G1+','+B1+')';
@@ -103,11 +103,12 @@ export default {
         let foodDiv = document.createElement('div');
         foodDiv.className = 'foodDiv';
 
-        var R = Math.random() * 256;
-        var G = Math.random() * 256;
-        var B = Math.random() * 256;
+        var R = parseInt(Math.random() * 256);
+        var G = parseInt(Math.random() * 256);
+        var B = parseInt(Math.random() * 256);
         foodDiv.style.backgroundColor = 'rgb('+R+','+G+','+B+')';
         this.foodColor = 'rgb('+R+','+G+','+B+')';
+        console.log(this.foodColor)
         document.getElementsByClassName('wrap')[x].getElementsByClassName('wrap-cut')[y].appendChild(foodDiv)
       }
     },
@@ -454,7 +455,7 @@ export default {
   right: 0px;
   /* width: 100%;
   height: 100%; */
-  /* background-color: gray; */
+  background-color: gray;
   /* position: relative; */
   /* transition: all .2s ease; */
   /* transform: rotate(90deg); */
@@ -466,7 +467,7 @@ export default {
   height: 22%;
   left: 0;
   top: 0;
-  /* background-color: lightcoral; */
+  background-color: lightcoral;
 }
 
 .moveBody {
@@ -486,7 +487,7 @@ export default {
   right: 0px;
   /* width: 100%;
   height: 100%; */
-  /* background-color: pink; */
+  background-color: pink;
 }
 
 .btn-group {
