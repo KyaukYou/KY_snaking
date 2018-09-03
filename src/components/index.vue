@@ -18,6 +18,10 @@
       <button @click="autoMove">自动</button>
       <button @click="pauseMove">暂停</button>  
       <button @click="clearAll">初始化</button>
+      <input type="number" placeholder="行" v-bind:value="hang" v-on:input='changeHang'>
+      *
+      <input type="number" placeholder="高" v-bind:value="lie" v-on:input='changeLie' disabled>
+      <button @click="changeBox">确定</button>
     </div>
 
   </div>
@@ -28,6 +32,8 @@ export default {
   data() {
     return {
       boxNumArr: [22,22],  //行,列
+      hang: 22,
+      lie: 22,
       initArr: [0,0],
       foodArr: [0,0],
       snakeLength: 0,
@@ -41,18 +47,82 @@ export default {
       eatHang: [],
       eatLie: [],
       eatHD: 'none', 
-      eatLD: 'none'
+      eatLD: 'none',
+      eatRotate: 0  
     }
   },
   methods: {
+    // 添加蛇身
+    addSnakeBody: function() {
+      console.log(this.initArr);
+      var move = document.getElementsByClassName('wrap')[this.initArr[0]].getElementsByClassName('wrap-cut')[this.initArr[1]].getElementsByClassName('moveDiv')[0];
+      var style = window.getComputedStyle(move,null).transform;
+      console.log(style.substring(7,style.length-1));
+      var styleArr = style.substring(7,style.length-1).split(',');
+      console.log(styleArr);
+      this.getmatrix(styleArr[0],styleArr[1],styleArr[2],styleArr[3],styleArr[4],styleArr[5])
+      if(this.eatRotate == 0) {
+        console.log('向上')
+      }
+      else if(this.eatRotate == 90) {
+        console.log('向右')
+      }
+      else if(this.eatRotate == 180) {
+        console.log('向下')
+      }
+      else if(this.eatRotate == 270) {
+        console.log('向左')
+      }
+    },
+    addDiv: function(val) {
+      if(val == 0) {
+        console.log('向上');
+        //判断在不在最后一行
+        if(this.initArr[0] == this.boxNumArr[0]) {
+          if(this.initArr[1] == 0) {
+
+          }
+          else if(this.initArr[1] == this.boxNumArr[1]) {
+
+          }
+        }
+      }
+      else if(val == 90) {
+        console.log('向右')
+      }
+      else if(val == 180) {
+        console.log('向下')
+      }
+      else if(val == 270) {
+        console.log('向左')
+      }
+    },
+    getmatrix: function(a,b,c,d,e,f){  
+      var aa=Math.round(180*Math.asin(a)/ Math.PI);  
+      var bb=Math.round(180*Math.acos(b)/ Math.PI);  
+      var cc=Math.round(180*Math.asin(c)/ Math.PI);  
+      var dd=Math.round(180*Math.acos(d)/ Math.PI);  
+      var deg=0;  
+      if(aa==bb||-aa==bb){  
+          deg=dd;  
+      }else if(-aa+bb==180){  
+          deg=180+cc;  
+      }else if(aa+bb==180){  
+          deg=360-cc||360-dd;  
+      };
+      console.log(deg);
+      var my =  deg>=360?0:deg;  
+      this.eatRotate = my;
+      //return (aa+','+bb+','+cc+','+dd);  
+    },
     // 初始化位置
     initFn: function() {
       //随机生成位置
       let x = parseInt(Math.random() * this.boxNumArr[0]);
       let y = parseInt(Math.random() * this.boxNumArr[1]);
-      console.log(x,y);
+      // console.log(x,y);
       this.initArr = [x,y];
-      console.log('she: '+ this.initArr);
+      // console.log('she: '+ this.initArr);
 
       //创建move元素
       let moveDiv = document.createElement('div');
@@ -84,7 +154,7 @@ export default {
       moveDiv.appendChild(moveBody);
 
       document.getElementsByClassName('wrap')[x].getElementsByClassName('wrap-cut')[y].appendChild(moveDiv);
-      console.log(this.initArr)
+      // console.log(this.initArr)
 
     },
     // 初始化食物位置
@@ -93,12 +163,12 @@ export default {
       let x = parseInt(Math.random() * this.boxNumArr[0]);
       let y = parseInt(Math.random() * this.boxNumArr[1]);
       if(x == this.initArr[0] && y == this.initArr[1]) {
-        console.log('food: '+ x,y)
+        // console.log('food: '+ x,y)
         this.initFood();
       }
       else {
         this.foodArr = [x,y];
-        console.log('food: '+ this.foodArr)
+        // console.log('food: '+ this.foodArr)
         //创建move元素
         let foodDiv = document.createElement('div');
         foodDiv.className = 'foodDiv';
@@ -108,14 +178,14 @@ export default {
         var B = parseInt(Math.random() * 256);
         foodDiv.style.backgroundColor = 'rgb('+R+','+G+','+B+')';
         this.foodColor = 'rgb('+R+','+G+','+B+')';
-        console.log(this.foodColor)
+        // console.log(this.foodColor)
         document.getElementsByClassName('wrap')[x].getElementsByClassName('wrap-cut')[y].appendChild(foodDiv)
       }
     },
     // 长度判断
     calLength: function() {
-      var snake = document.getElementsByClassName('moveDiv');
-      this.snakeLength = snake.length;
+      // var snake = document.getElementsByClassName('moveDiv');
+      // this.snakeLength = snake.length;
 
     },
     // 移动吃食物
@@ -156,7 +226,7 @@ export default {
         }
       }         
       this.initArr = snake;
-      console.log(snakeA,snake)
+      // console.log(snakeA,snake)
       
       let snakeDiv = document.getElementsByClassName('wrap')[snakeA[0]].getElementsByClassName('wrap-cut')[snakeA[1]].getElementsByClassName('moveDiv')[0];
       document.getElementsByClassName('wrap')[snakeA[0]].getElementsByClassName('wrap-cut')[snakeA[1]].removeChild(snakeDiv);
@@ -182,7 +252,7 @@ export default {
         }
         
         // document.getElementsByClassName('moveDiv')[0].style.transition =  'all .2s ease';
-        console.log(rotateText)
+        // console.log(rotateText)
         this.snakePrueRotate = rotateText;
         this.snakeRotate = 'rotate('+ rotateText +'deg)';
         document.getElementsByClassName('moveDiv')[0].style.transform = this.snakeRotate;
@@ -197,7 +267,7 @@ export default {
         if(rotateText == 360) {
           rotateText = 0;
         }
-        console.log(rotateText)
+        // console.log(rotateText)
         this.snakePrueRotate = rotateText;
         this.snakeRotate = 'rotate('+ rotateText +'deg)';
         document.getElementsByClassName('moveDiv')[0].style.transform = this.snakeRotate;
@@ -306,10 +376,15 @@ export default {
           document.getElementsByClassName('wrap')[foodA[0]].getElementsByClassName('wrap-cut')[foodA[1]].removeChild(foodDiv);
 
           // var foodDivColor = footDiv.style.backgroundColor;
-          console.log(foodDiv);  
+          // console.log(foodDiv.style.backgroundColor); 
+          var foodColor =  foodDiv.style.backgroundColor;
+          var bodyColor = document.getElementsByClassName('moveDiv')[0].style.backgroundColor;
+          document.getElementsByClassName('moveDiv')[0].style.backgroundColor = foodColor;
+          document.getElementsByClassName('moveDiv')[0].getElementsByClassName('moveHead')[0].style.backgroundColor = bodyColor;
 
           that.initFood();
           that.autoMove();
+          that.addSnakeBody();
         }
 
 
@@ -331,6 +406,25 @@ export default {
       }
       this.initFn();
       this.initFood();
+    },
+    // 自定义行列
+    changeHang: function(e) {
+      // console.log(e);
+      this.hang = e.target.value;
+      this.lie = e.target.value;
+    },
+    changeLie: function(e) {
+      // console.log(e);
+      this.lie = e.target.value;
+    },
+    // 按钮确认修改
+    changeBox: function() {
+      var arr = [Number(this.hang),Number(this.lie)];
+      // console.log(arr)
+      this.boxNumArr = arr;
+      // this.clearAll();
+      // this.initFn();
+      // this.initFood();
     }
   },
   mounted: function() {
@@ -508,16 +602,40 @@ export default {
   line-height: 22px;
   margin: 0 5px;
   font-size: 10px;
-  /* outline: none; */
+  outline: none;
   background-color: transparent;
   border: none;
-  border: 2px solid rgb(50, 60, 110);
-  color: black;
+  border: 2px solid rgb(16, 18, 29);
+  color: rgb(16, 18, 29);
   cursor: pointer;
   text-align: center;
   padding: 0;
+  transition: all .2s ease;
 }
 
+.btn-group button:hover {
+  background-color: rgb(16, 18, 29);
+  color: white;
+}
+
+.btn-group input {
+  width: 42px;
+  height: 26px;
+  line-height: 22px;
+  margin: 0 5px;
+  font-size: 10px;
+  outline: none;
+  background-color: transparent;
+  border: none;
+  border: 2px solid rgb(16, 18, 29);
+  color: rgb(16, 18, 29);
+  cursor: pointer;
+  text-align: center;
+  padding: 0;
+  transition: all .2s ease;
+  box-sizing: border-box;
+  cursor: text;
+}
 
 .wrap .wrap-cut:last-child {
   /* border: none; */
